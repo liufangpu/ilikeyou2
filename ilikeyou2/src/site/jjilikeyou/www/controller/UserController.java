@@ -52,7 +52,7 @@ public class UserController {
 		User user2=userSerivce.login(user);
 		session.setAttribute("user", user2);
 		if (user2!=null) {
-			return "redirect:/chat.html?username="+username;
+			return "redirect:/chat.jsp?username="+username;
 		}else {
 			return "redirect:/index.html";
 		}
