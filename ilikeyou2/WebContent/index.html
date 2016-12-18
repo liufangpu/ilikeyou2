@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en" class="no-js">
     <head>
-        <meta charset="utf-8">
+        <meta charset="UTF-8">
         <title>Welcome</title>
 		<meta name="keywords" content="网站模板,手机网站模板,手机登录页面,登录页面HTML,免费网站模板下载" />
 		<meta name="description" content="JS代码网提供高质量手机网站模板下载" />
@@ -10,6 +10,7 @@
         <meta name="author" content="">
 
         <!-- CSS -->
+        <link rel="shortcut icon" href="./static/images/favicon.jpg" />
         <link rel="stylesheet" href="./assets/css/reset.css">
         <link rel="stylesheet" href="./assets/css/supersized.css">
         <link rel="stylesheet" href="./assets/css/style.css">
@@ -24,15 +25,15 @@
     <body>
 
         <div class="page-container">
-            <h1>登录</h1>
-            <form id="myForm" action="/ilikeyou/user/login">
-                <input type="text" name="username" id="username" class="username" placeholder="用户名">
-                <input type="password" name="password" id="password" class="password" placeholder="密码">
-                <button type="submit">提交</button>
+            <h1>Login</h1>
+            <form id="myForm" action="/ilikeyou/user/login" method="post">
+                <input type="text" name="username" id="username" class="username" placeholder="username">
+                <input type="password" name="password" id="password" class="password" placeholder="password">
+                <button type="submit">Login</button>
                 <div class="error"><span>+</span></div>
             </form>
             <div class="connect">
-                <p>新用户?点击注册</p>
+                <p>New Account?Click on the image below to Register</p>
                 <p>
                     <a class="facebook" href="register.jsp"></a>
                     <a class="twitter" href="register.jsp"></a>

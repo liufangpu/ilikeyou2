@@ -9,10 +9,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="./static/images/favicon.jpg" />
 <link href="./static/css/register.css" rel='stylesheet' type='text/css' />
 <script type="text/javascript" src="./static/js/jquery-1.11.0.js"></script>
 		
-<title>Insert title here</title>
+<title>注册</title>
 </head>
 <base href="<%=basePath%>">
 <body>
@@ -52,8 +53,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="clear"> </div>
 					</li> 
 					<!-- <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>我同意此协议</label> -->
-					<input type="submit" id="submit"  value="Create Account">
+					<input type="submit" id="submit" onclick="return false;"  value="Create Account">
+						<p>Already have an account ?</><a href="index.html">Click Here</a>
 						<div class="clear"> </div>
+						
 				</ul>
 				<div class="clear"> </div>
 			</form>
@@ -67,7 +70,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 function loadXMLDoc() {
 	var username=document.getElementById("username").value;
 	var test=document.getElementById("test");
-	var reg=/^([a-zA-Z0-9_\u4e00-\u9fa5]){3,16}$/;
+	//var reg=/^([a-zA-Z0-9_\u4e00-\u9fa5]){3,16}$/;
+	var reg=/^[A-Za-z0-9]+$/;
 	if(reg.test(username)){
 		$.ajax({
     		type:"post",
@@ -89,7 +93,7 @@ function loadXMLDoc() {
 	}else{
 		test.setAttribute("class", "icon into");
 		document.getElementById("show").setAttribute("type", "text");
-        document.getElementById("show").setAttribute("value", "用户名格式错误！");
+        document.getElementById("show").setAttribute("value", "只能输入字母或数字！");
 	}
 }
 function loadXMLDoc1() {
@@ -160,7 +164,8 @@ $("#submit").click(function (){
 		            success: function(data) {
 		            	if(data=='true'){
 		            		//alert("注册成功");
-		            		window.open('success.html');
+		            		//window.open('success.html');
+		            		window.location.href='success.html';
 		            	}else{
 		            		alert("注册失败");
 		            		window.location.href='register.html';

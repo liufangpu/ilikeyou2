@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
 
   <title>聊天室</title>
-
+	<link rel="shortcut icon" href="./static/images/favicon.jpg" />
     <link rel="stylesheet" href="./static/css/beatu.css" media="screen" type="text/css" />
     <link rel="stylesheet" href="./static/css/input.css" media="screen" type="text/css" />
     <link rel="stylesheet" href="./static/css/amazeui.css" media="screen" type="text/css" />
@@ -67,7 +67,7 @@
             }
         }
     }
-    //alert(getUrlParameter('username'));
+   //alert(decodeURI(getUrlParameter('username')));
         var Chat = {};
 
         Chat.socket = null;
@@ -106,9 +106,9 @@
         Chat.initialize = function() {
             if (window.location.protocol == 'http:') {
                // Chat.connect('ws://localhost:8080/ilikeyou/websocket/chat');
-                Chat.connect('ws://' + window.location.host + '/ilikeyou/websocket/chat/'+getUrlParameter('username'));
+                Chat.connect('ws://' + window.location.host + '/ilikeyou/websocket/chat/'+decodeURI(getUrlParameter('username')));
             } else {
-                Chat.connect('wss://' + window.location.host + '/ilikeyou/websocket/chat'+getUrlParameter('username'));
+                Chat.connect('wss://' + window.location.host + '/ilikeyou/websocket/chat'+decodeURI(getUrlParameter('username')));
             	//Chat.connect('wss://localhost:8080/ilikeyou/websocket/chat');
             }
         };
