@@ -51,11 +51,12 @@ public class UserController {
 		user.setPassword(password);
 		User user2=userSerivce.login(user);
 		session.setAttribute("user", user2);
-		if (user2!=null) {
+		/*if (user2!=null) {
 			return "redirect:/chat.jsp?username="+username;
 		}else {
 			return "redirect:/index.html";
-		}
+		}*/
+		return "index";
 	}
 	public static void doResponse(HttpServletResponse response,Object object){
 		response.setCharacterEncoding("utf-8");
