@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -43,12 +44,12 @@
           <div class="col-md-12">
 
             <!-- Logo -->
-            <figure class="text-center">
-              <a href="./index.html">
+            <%-- <figure class="text-center">
+              <a href="./sign-in.jsp">
                 <img class="img-logo" src="${pageContext.request.contextPath}/nice/images/logo.png" alt="">
               </a>
             </figure> <!-- /.text-center -->
-            
+             --%>
           </div> <!-- /.col-md-12 -->
 
         </div> <!-- /.row -->
@@ -63,8 +64,8 @@
             <div class="col-md-12">
 
               <h4 class="text-center">Sign In to your account</h4>
-
-              <form class="sign-in-up-form" action="${pageContext.request.contextPath}/user/login" role="form" method="post">
+				<!-- action="${pageContext.request.contextPath}/user/login" role="form" method="post" -->
+              <form class="sign-in-up-form" >
                 
                 <!-- Input 1 -->
                 <div class="form-group">
@@ -75,10 +76,12 @@
                 <div class="form-group">
                   <input class="form-control" id="exampleInputPassword1" name="password" type="password" placeholder="Password">
                 </div> <!-- /.form-group -->
-
+				
                 <!-- Button -->
-                <button class="btn btn-success btn-block" type="submit">Sign In</button>
-
+                <button class="btn btn-success btn-block" type="button" onclick="login()">Sign In</button>
+				<div id="alert_login" class="my-alert alert-dismissable  login_erro" style="display: none" >
+					<strong id="errMsg_login" style="text-align: center">用户名或密码错误!</strong>
+				</div>
                 <!-- Checkbox -->
                 <section class="text-center">
                   <div class="checkbox">
@@ -110,7 +113,7 @@
 
             <section class="footer-copyright text-center">
 
-              <p>Made with <i class="fa fa-heart"></i> by Aryandhani.</p>
+              <p>Made with <i class="fa fa-heart"></i> by liufangpu.</p>
               
             </section> <!-- /.footer-section -->
             
@@ -127,5 +130,41 @@
     <script src="${pageContext.request.contextPath}/nice/javascript/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/nice/javascript/assets/application.js"></script>
   <div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+	<script type="text/javascript">
+	function login(){
+    	var username= $('#exampleInputEmail2').val();
+    	var passwd = $('#exampleInputPassword1').val();
+    	/*  var rember = "";
+    	if(username==""||passwd==""){
+    		$("#alert_login").show();
+			$("#errMsg_login").empty().append("&nbsp;&nbsp;&nbsp;&nbsp;用户名密码不能为空！");
+			$("#alert_login").fadeOut(2000);
+			return;
+		}
+    	$("input[type='checkbox']").each(function() {
+ 			if($(this).is(":checked")) {
+ 				rember += $(this).val();
+ 			}
+ 		}); */
+    	$.post(
+    			'<c:url value="user/login"/>',
+    			{username:username, password:passwd},
+    		function(data){
+		    		if(data.success){
+						 window.location='<c:url value="user/index"/>';
+					}else{
+						$('.login_erro').show();
+					}
+				}
+    	);
+    }
+	 document.onkeydown=function(event){ 
+        e = event ? event :(window.event ? window.event : null); 
+        if(e.keyCode==13){ 
+           login();
+        } 
+    };
+	
+	</script>
 </body>
 </html>

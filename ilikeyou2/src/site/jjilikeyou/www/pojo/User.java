@@ -2,7 +2,7 @@ package site.jjilikeyou.www.pojo;
 
 public class User {
 	private Integer id;
-	private String username;
+	private String name;
 	private String password;
 	private String email;
 	
@@ -11,9 +11,9 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public User(String username, String password, String email) {
+	public User(String name, String password, String email) {
 		super();
-		this.username = username;
+		this.name = name;
 		this.password = password;
 		this.email = email;
 	}
@@ -24,11 +24,11 @@ public class User {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getUsername() {
-		return username;
+	public String getName() {
+		return name;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getPassword() {
 		return password;

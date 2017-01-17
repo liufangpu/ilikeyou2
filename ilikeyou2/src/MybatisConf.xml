@@ -6,6 +6,7 @@
 		<typeAlias type="site.jjilikeyou.www.pojo.User" alias="User"/>
 		<typeAlias type="site.jjilikeyou.www.model.CustomerModel" alias="CM"/>
 		<typeAlias type="site.jjilikeyou.www.model.CustomerQueryModel" alias="CQM"/>
+		<typeAlias type="site.jjilikeyou.www.model.Message" alias="Message"/>
 	</typeAliases>
 	
 	

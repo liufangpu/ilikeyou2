@@ -2,17 +2,27 @@ package site.jjilikeyou.www.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import site.jjilikeyou.www.model.Message;
+import site.jjilikeyou.www.model.Result;
 import site.jjilikeyou.www.pojo.User;
 import site.jjilikeyou.www.service.UserService;
+import site.jjilikeyou.www.util.IPUtil;
+import site.jjilikeyou.www.util.JsonUtil;
 
 @Controller
 @RequestMapping("/user")
@@ -31,10 +41,20 @@ public class UserController {
 			doResponse(response, "false");
 		}
 	}
+	@RequestMapping("/checkEmail")
+	public void checkEmail(@RequestParam("email")String email,HttpServletResponse response){
+		User user=userSerivce.checkEmail(email);
+		System.out.println(user);
+		if (user==null) {
+			doResponse(response, "true");
+		}else {
+			doResponse(response, "false");
+		}
+	}
 	@RequestMapping("/addUser")
-	public void addUser(HttpServletResponse response,@RequestParam("username") String username,@RequestParam("password")String password,@RequestParam("email")String email){
-		System.out.println(username);
-		User user=new User(username, password, email);
+	public void addUser(HttpServletResponse response,@RequestParam("name") String name,@RequestParam("password")String password,@RequestParam("email")String email){
+		System.out.println(name);
+		User user=new User(name, password, email);
 		int i=userSerivce.addUser(user);
 		System.out.println("cha"+i);
 		if (i>0) {
@@ -45,18 +65,23 @@ public class UserController {
 	}
 	
 	@RequestMapping("/login")
-	public String login(HttpSession session,HttpServletResponse response,@RequestParam("username")String username,@RequestParam("password")String password){
+	@ResponseBody
+	public Result login(Model model,HttpServletRequest request,Map<String, Object>map,HttpSession session,HttpServletResponse response,@RequestParam("username")String email,@RequestParam("password")String password){
 		User user=new User();
-		user.setUsername(username);
+		user.setEmail(email);
 		user.setPassword(password);
 		User user2=userSerivce.login(user);
-		session.setAttribute("user", user2);
-		/*if (user2!=null) {
-			return "redirect:/chat.jsp?username="+username;
+		List<Message> messages=userSerivce.getMessageList(email);
+		System.out.println(messages);
+		session.setAttribute("messages", messages);
+		Result result =new Result();
+		if (user2!=null) {
+			session.setAttribute("user", user2);
+			result.setSuccess(true);
 		}else {
-			return "redirect:/index.html";
-		}*/
-		return "index";
+			result.setSuccess(false);
+		}
+		return result;
 	}
 	public static void doResponse(HttpServletResponse response,Object object){
 		response.setCharacterEncoding("utf-8");
@@ -72,5 +97,8 @@ public class UserController {
 		}
 		
 	}
-
+	@RequestMapping("/index")
+	public String toIndex(){
+		return "index";
+	}
 }

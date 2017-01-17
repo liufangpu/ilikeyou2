@@ -95,19 +95,26 @@ jQuery(document).ready(function($){
 function loadScript() {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' +
+  script.src = 'http://api.map.baidu.com/api?v=2.0&ak=B7nExTzd1je76d48MTCq7rqTigoDZAxI&' +
       'callback=initialize';
   document.body.appendChild(script);
 }
 
 function initialize() {
-    var mapOptions = {
+   /* var mapOptions = {
       zoom: 15,
-      center: new google.maps.LatLng(16.8496189,96.1288854)
-    };
-    var map = new google.maps.Map(document.getElementById('templatemo_map'),  mapOptions);
+      center: new google.maps.LatLng(41.774166667, 85.943055556)
+    };*/
+   // var map = new google.maps.Map(document.getElementById('templatemo_map'),  mapOptions);
+    
+ // 百度地图API功能
+   var map = new BMap.Map("templatemo_map"); // 创建Map实例40.0382920000,116.4237930000
+   // map.centerAndZoom(new BMap.Point(112.7816270000,27.6351040000), 15); // 初始化地图,设置中心点坐标和地图级别
+   map.centerAndZoom(new BMap.Point(116.4237930000,40.0382920000), 18);
+    map.addControl(new BMap.MapTypeControl()); //添加地图类型控件
+    map.setCurrentCity("北京"); // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
 }
-
 
 /*----------------- Previous Next button ---------------------- */
 $(window).load(function(){

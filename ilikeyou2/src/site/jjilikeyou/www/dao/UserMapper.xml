@@ -6,11 +6,17 @@
 		username=#{username}
 	</select>
 	<insert id="addUser">
-		insert into user(username,password,email) values(#{username},#{password},#{email})
+		insert into user(name,password,email) values(#{name},#{password},#{email})
 	</insert>
-	
+	<select id="checkEmail" resultType="User">
+		select * from user where email=#{email}
+	</select>
 	<select id="login" resultType="User">
-		select * from user where username=#{username} and password=#{password}
+		select * from user where email=#{email} and password=#{password}
+	</select>
+	
+	<select id="getMessageList" resultType="Message">
+		select * from message where email=#{email}
 	</select>
 	<!-- 
      <insert id="create" parameterType="CM">
