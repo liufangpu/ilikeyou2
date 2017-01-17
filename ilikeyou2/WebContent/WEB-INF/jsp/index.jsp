@@ -471,8 +471,10 @@
             success: function(data) {
             	if(data.success==true){
             		alert("发送成功！");
+            		window.location.reload();
             	}else{
-            		alert("发送失败");
+            		alert("回话过期,请重新登录后发送！");
+            		window.location.reload();
             	}
             }
         	});
@@ -480,7 +482,7 @@
 			alert("每个空都要填");
 		}
 	})
-	/* /* var emailId=${user.email};
+	/* var emailId=${user.email};
 	alert(emailId);
 	$.ajax({
             cache: true,
