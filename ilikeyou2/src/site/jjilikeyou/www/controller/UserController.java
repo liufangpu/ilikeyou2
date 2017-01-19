@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import site.jjilikeyou.www.model.Message;
 import site.jjilikeyou.www.model.Result;
 import site.jjilikeyou.www.pojo.User;
@@ -29,7 +29,7 @@ import site.jjilikeyou.www.util.MailUtil;
 public class UserController {
 	@Autowired
 	private UserService userSerivce;
-	
+	private static Logger logger = Logger.getLogger(UserController.class);
 	@RequestMapping("/checkName")
 	public void checkUsername(@RequestParam("username")String username,HttpServletResponse response){
 		System.out.println(username);
@@ -113,10 +113,13 @@ public class UserController {
 	@RequestMapping("/forgotPsw")
 	public String forgotPsw(@RequestParam("email")String email){
 		MailUtil mailUtil=new MailUtil();
+		logger.info("申请密码的邮箱："+email);
 		String password=userSerivce.getPasswordByEmail(email);
+		logger.info("查询到的密码:"+password);
 		mailUtil.setAddress("wyyxlfp@163.com", email, "来自liufangpu的官方邮件--忘记密码申请");
+		String content="您的密码为"+password+"请牢记！您看到这封邮件是来自liufangpu忘记密码官方邮件，如果本人未作任何操作，请忽略！";
 		try {
-			mailUtil.setConent("您的密码为"+password+"请牢记！");
+			mailUtil.setConent(content);
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
