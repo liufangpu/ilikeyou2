@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  <!-- Title -->
-    <title>Guri Guri Nyoi &mdash; Bootstrap 3 iPhone App Templates</title>
+    <title>Guri Guri Nyoi &mdash; nice to meet you</title>
 
     <!-- Templates core CSS -->
     <link href="${pageContext.request.contextPath}/nice/stylesheets/application.css" rel="stylesheet">
@@ -126,11 +126,11 @@
 		function checkEmail(){
 			var email=document.getElementById("exampleInputEmail3").value;
 			$.ajax({
-	    		type:"post",
+	    		type:"get",
 	    		url:'<c:url value="/user/checkEmail" />',
 	    		data:{"email":email},
 	    		success:function(data) {
-	    				if(data=='false'){
+	    				if(data.success==false){
 	    					alert("邮箱已被注册！请更换邮箱");
 	    				    window.location.reload();
 	    				}

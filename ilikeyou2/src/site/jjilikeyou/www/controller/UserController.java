@@ -2,10 +2,11 @@ package site.jjilikeyou.www.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,8 +22,7 @@ import site.jjilikeyou.www.model.Message;
 import site.jjilikeyou.www.model.Result;
 import site.jjilikeyou.www.pojo.User;
 import site.jjilikeyou.www.service.UserService;
-import site.jjilikeyou.www.util.IPUtil;
-import site.jjilikeyou.www.util.JsonUtil;
+import site.jjilikeyou.www.util.MailUtil;
 
 @Controller
 @RequestMapping("/user")
@@ -42,18 +42,19 @@ public class UserController {
 		}
 	}
 	@RequestMapping("/checkEmail")
-	public void checkEmail(@RequestParam("email")String email,HttpServletResponse response){
+	@ResponseBody
+	public Result checkEmail(@RequestParam("email")String email){
 		User user=userSerivce.checkEmail(email);
-		System.out.println(user);
+		Result result=new Result();
 		if (user==null) {
-			doResponse(response, "true");
+			result.setSuccess(true);
 		}else {
-			doResponse(response, "false");
+			result.setSuccess(false);
 		}
+		return result;
 	}
 	@RequestMapping("/addUser")
 	public void addUser(HttpServletResponse response,@RequestParam("name") String name,@RequestParam("password")String password,@RequestParam("email")String email){
-		System.out.println(name);
 		User user=new User(name, password, email);
 		int i=userSerivce.addUser(user);
 		System.out.println("cha"+i);
@@ -101,4 +102,28 @@ public class UserController {
 	public String toIndex(){
 		return "index";
 	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session){
+		session.invalidate();
+		return "redirect:/sign-in.jsp";
+		
+	}
+	
+	@RequestMapping("/forgotPsw")
+	public String forgotPsw(@RequestParam("email")String email){
+		MailUtil mailUtil=new MailUtil();
+		String password=userSerivce.getPasswordByEmail(email);
+		mailUtil.setAddress("wyyxlfp@163.com", email, "来自liufangpu的官方邮件--忘记密码申请");
+		try {
+			mailUtil.setConent("您的密码为"+password+"请牢记！");
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		Multipart multipart = mailUtil.getMultipart();
+		
+		mailUtil.send("smtp.163.com", "wyyxlfp@163.com", "lfpzhi21",multipart);
+		return "redirect:/sign-in.jsp";
+	}
+	
 }

@@ -16,5 +16,7 @@ public interface UserService {
 	User checkEmail(String email);
 
 	List<Message> getMessageList(String email);
+
+	String getPasswordByEmail(String email);
   
 }

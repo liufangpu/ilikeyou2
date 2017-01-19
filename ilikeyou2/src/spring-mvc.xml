@@ -26,6 +26,8 @@
         	<mvc:mapping path="/*/*"/> 
         	<mvc:exclude-mapping path="/user/login"/>
         	<mvc:exclude-mapping path="/user/addUser"/>
+        	<mvc:exclude-mapping path="/user/checkEmail"/>
+        	<mvc:exclude-mapping path="/user/forgotPsw"/>
             <bean class="site.jjilikeyou.www.util.UserIterceptor"></bean>
         <!-- 定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的 -->  
         </mvc:interceptor>

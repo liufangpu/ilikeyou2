@@ -37,11 +37,11 @@
           <div class="col-md-12">
 
             <!-- Logo -->
-            <figure class="text-center">
+            <%-- <figure class="text-center">
               <a href="./index.html">
                 <img class="img-logo" src="${pageContext.request.contextPath}/nice/images/logo.png" alt="">
               </a>
-            </figure> <!-- /.text-center -->
+            </figure> --%> <!-- /.text-center -->
             
           </div> <!-- /.col-md-12 -->
 
@@ -60,11 +60,11 @@
 
               <p>Please enter your email address. We will send you an email containing instructions to help you reset your password.</p>
 
-              <form class="sign-in-up-form" action="./forgot-password.html" role="form">
+              <form class="sign-in-up-form" action="${pageContext.request.contextPath}/user/forgotPsw" role="form" method="post">
                 
                 <!-- Input 1 -->
                 <div class="form-group">
-                  <input class="form-control" id="exampleInputEmail4" type="email" placeholder="Enter email address">
+                  <input class="form-control" id="exampleInputEmail4" name="email" type="email" placeholder="Enter email address">
                 </div> <!-- /.form-group -->
 
                 <!-- Button -->
@@ -87,7 +87,7 @@
 
             <section class="footer-copyright text-center">
 
-              <p>Made with <i class="fa fa-heart"></i> by Aryandhani.</p>
+              <p>Made with <i class="fa fa-heart"></i> by liufangpu.</p>
               
             </section> <!-- /.footer-section -->
             

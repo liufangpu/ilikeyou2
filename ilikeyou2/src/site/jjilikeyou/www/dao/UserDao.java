@@ -18,4 +18,6 @@ public interface UserDao {
 
 	List<Message> getMessageList(@Param("email")String email);
 
+	String getPasswordByEmail(@Param("email")String email);
+
 }

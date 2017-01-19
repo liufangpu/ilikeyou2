@@ -10,6 +10,8 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/nice/css/font-awesome.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/nice/css/templatemo_misc.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/nice/css/templatemo_style.css">
+	
+	<link type="text/css" href="${pageContext.request.contextPath}/nice/css/maolaoshifu.css" rel="stylesheet"/>
     <!-- JavaScripts -->
 	<script src="${pageContext.request.contextPath}/nice/js/jquery-1.10.2.min.js"></script>
 	<script src="${pageContext.request.contextPath}/nice/js/jquery.singlePageNav.js"></script>
@@ -28,6 +30,8 @@
         	<div class="col-md-6 col-sm-6">
             	<div class="templatemo_title"><a href="#">welcome dear:</a></div>
                 <div class="templatemo_subtitle">${user.name}</div>
+                 <div class="templatemo_subtitle"><a href="javascript:if(confirm('确实要退出吗?'))location='${pageContext.request.contextPath}/user/logout'" >exit</a></div>
+                
             </div>
             <div class="col-md-6 col-sm-6">
             	<form id="search_form" action="//www.baidu.com.cn/s">
@@ -414,7 +418,7 @@
     </div>
   </div>
   </div>
-  <div class="content contact" id="menu-6">
+  <div class="content" id="menu-6">
   <div class="container">
   	<div class="row">
     	<div class="col-md-12">
@@ -424,17 +428,88 @@
       <div class="clear"></div>
     <div class="clear"></div>
     <div class="row">
-    	<div class="col-md-8 col-sm-12">
+    	<div class="col-md-7 col-sm-12">
              <table>
              	<tr>
              		<c:forEach items="${messages}" var="message">
              		<div class="templatemo_textareabox"><textarea name="message" class="form-control" id="message"  placeholder=${message.message}></textarea>	
-             		<div class="fa fa-map-marker">${message.ipName}(message.ip)</div>
+             		<div class="fa fa-map-marker">${message.ipName}(${message.ip})</div>
              		</c:forEach>
              	</tr>
              </table>
              <div class="clear"></div>
         </div>
+        <!-- mao start -->
+        <div class="mao_box col-md-4 col-sm-12">
+	<div class="mao">
+		<div class="mao_head">
+			<div class="huawen">
+				<div><!--头部花纹——左边橙色--></div>
+			</div>
+		</div>
+		<div class="erduo">
+			<div></div>
+			<div></div>
+		</div>
+		<div class="yanjing">
+			<div>
+				<div class="yanquan">
+					<div></div>
+				</div>
+				<div class="yanquan_hedding">
+
+				</div>
+				<div class="hong"></div>
+			</div>
+			<div class="yan_right">
+				<div class="yanquan">
+					<div></div>
+				</div>
+				<div class="yanquan_hedding">
+
+				</div>
+				<div class="hong"></div>
+			</div>
+			<div style="clear:both"></div>
+		</div>
+		<div class="face_huawen">
+			<div class="face_huawen_huawen huawen_left">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+
+			</div>
+			<div class="face_huawen_huawen huawen_right">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+
+			</div>
+			<div style="clear:both"></div>
+		</div>
+		<div class="bizi">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<div class="zuiba_box">
+			<div class="zuiba">
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<div>
+		<h4 style="color: green">亲爱的 &nbsp;${user.name}:我帅不帅?</h4>
+	</div>
+</div>
+<!-- mao end -->
     </div>
   </div>
   </div>
@@ -482,7 +557,9 @@
 			alert("每个空都要填");
 		}
 	})
-	/* var emailId=${user.email};
+	
+	
+	/*  var emailId=${user.email};
 	alert(emailId);
 	$.ajax({
             cache: true,
@@ -493,7 +570,7 @@
             success: function(data) {
             	window.location.reload();
             }
-        	}); */ 
+        	});  */
 	</script>
 </body>
 </html>

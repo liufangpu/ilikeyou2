@@ -18,6 +18,11 @@
 	<select id="getMessageList" resultType="Message">
 		select * from message where email=#{email}
 	</select>
+	
+	<select id="getPasswordByEmail" resultType="java.lang.String">
+		select password from user where email=#{email}
+	
+	</select>
 	<!-- 
      <insert id="create" parameterType="CM">
      	insert into tbl_customer (customerId,pwd,showName,trueName,registerTime) 

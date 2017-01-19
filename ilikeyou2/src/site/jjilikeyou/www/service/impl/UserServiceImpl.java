@@ -37,5 +37,10 @@ public class UserServiceImpl implements UserService {
 		
 		return userDao.getMessageList(email);
 	}
+	@Override
+	public String getPasswordByEmail(String email) {
+		// TODO Auto-generated method stub
+		return userDao.getPasswordByEmail(email);
+	}
 
 }
