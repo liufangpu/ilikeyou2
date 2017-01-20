@@ -27,16 +27,12 @@ public class MailUtil {
 	    private String user = ""; // 用户名
 	    private String pwd = ""; // 密码
 	    private String subject = ""; // 邮件标题
-	    private final static Multipart multipart=new MimeMultipart();
-	    public static Multipart getMultipart() {
-			return multipart;
-		}
 		public void setAddress(String from, String to, String subject) {
 	        this.from = from;
 	        this.to = to;
 	       this.subject = subject;
 	    }
-	    static {
+		static {
 	    	 MailcapCommandMap mc = (MailcapCommandMap) CommandMap.getDefaultCommandMap();
 		        mc.addMailcap("text/html;; x-Java-content-handler=com.sun.mail.handlers.text_html");
 		        mc.addMailcap("text/xml;; x-java-content-handler=com.sun.mail.handlers.text_xml");
@@ -45,7 +41,7 @@ public class MailUtil {
 		        mc.addMailcap("message/rfc822;; x-java-content-handler=com.sun.mail.handlers.message_rfc822");
 		        CommandMap.setDefaultCommandMap(mc);
 	    }
-	    public void setAffix(String affix, String affixName) throws MessagingException {
+	    public void setAffix(String affix, String affixName,Multipart multipart) throws MessagingException {
 	        this.affix = affix;
 	        this.affixName = affixName;
 	        // 添加附件
@@ -61,7 +57,7 @@ public class MailUtil {
             multipart.addBodyPart(messageBodyPart);
 	    }
 	    
-	    public void setConent(String content) throws MessagingException {
+	    public void setConent(String content,Multipart multipart) throws MessagingException {
 	    	 // 设置邮件的文本内容
             BodyPart contentPart = new MimeBodyPart();
             contentPart.setText(content);
@@ -148,7 +144,7 @@ public class MailUtil {
 	    
 	    public static void main(String[] args) {
 	        MailUtil cn = new MailUtil();
-	       // Multipart multipart = new MimeMultipart();
+	        Multipart multipart = new MimeMultipart();
 	        //在发邮件之前必须加上下列代码，才不会报javax.activation.UnsupportedDataTypeException: no object DCH for MIME type multipart/mixed;
 	      /*  MailcapCommandMap mc = (MailcapCommandMap) CommandMap.getDefaultCommandMap();
 	        mc.addMailcap("text/html;; x-Java-content-handler=com.sun.mail.handlers.text_html");
@@ -163,7 +159,7 @@ public class MailUtil {
 	        // 设置要发送附件的位置和标题
 	        try {
 				//cn.setAffix("f:/123.txt", "123.txt");
-				cn.setConent("哈哈哈哈");
+				cn.setConent("哈哈哈哈4545",multipart);
 			} catch (MessagingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

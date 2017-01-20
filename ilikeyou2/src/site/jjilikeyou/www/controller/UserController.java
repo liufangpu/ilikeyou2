@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
+import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+
+
 import site.jjilikeyou.www.model.Message;
 import site.jjilikeyou.www.model.Result;
 import site.jjilikeyou.www.pojo.User;
@@ -113,18 +117,23 @@ public class UserController {
 	@RequestMapping("/forgotPsw")
 	public String forgotPsw(@RequestParam("email")String email){
 		MailUtil mailUtil=new MailUtil();
+		Multipart multipart=new MimeMultipart();
 		logger.info("申请密码的邮箱："+email);
 		String password=userSerivce.getPasswordByEmail(email);
 		logger.info("查询到的密码:"+password);
 		mailUtil.setAddress("wyyxlfp@163.com", email, "来自liufangpu的官方邮件--忘记密码申请");
-		String content="您的密码为"+password+"请牢记！您看到这封邮件是来自liufangpu忘记密码官方邮件，如果本人未作任何操作，请忽略！";
+		String content="";
+		if (password!= null) {
+			 content="您的密码为"+password+"请牢记！您看到这封邮件是来自liufangpu忘记密码官方邮件，如果本人未作任何操作，请忽略！";
+		}else {
+			content="有一个捣蛋鬼朋友乱发的邮件，请忽略！祝您生活愉快";
+		}
+		
 		try {
-			mailUtil.setConent(content);
+			mailUtil.setConent(content,multipart);
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
-		Multipart multipart = mailUtil.getMultipart();
-		
 		mailUtil.send("smtp.163.com", "wyyxlfp@163.com", "lfpzhi21",multipart);
 		return "redirect:/sign-in.jsp";
 	}
